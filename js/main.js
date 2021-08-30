@@ -1,111 +1,111 @@
-(function ($) {
-    "use strict";
+$(document).ready(function() {
+	$('.bxslider').bxSlider();
+	
+	$(".menu-trigger").click(function() {
+		$("#menu").fadeToggle(300);
+		$(this).toggleClass("active")
+	});
+	
+	$('.info-request, .get-contact').fancybox();
+	
+	$("select").crfs(); 
+	
+	
+	$(".table td").mouseenter(function(){    
+        $(this).find(".holder").stop(true, true).fadeIn(600);
+        $(this).find(">div").addClass('hover');
+        return false;
+     });
+      $('.table td').mouseleave(function(){  
+        $(this).find(".holder").stop(true, true).fadeOut(400);
+        $(this).find(">div").removeClass('hover');
+        return false;
+     });
+	$(".table td .holder").click(function() {
+        $(this).stop(true, true).fadeOut(400);
+        $(this).parent().parent().removeClass('hover');
+        return false;
+	});
+	
+	var isBrowserOs = {
+	    Windows: function() {
+	        return navigator.userAgent.match(/Win/i);
+	    },
+	    MacOS: function() {
+	        return navigator.userAgent.match(/Mac/i);
+	    },
+	    UNIX: function() {
+	        return navigator.userAgent.match(/X11/i);
+	    },
+	    Linux: function() {
+	        return navigator.userAgent.match(/Linux/i);
+	    },
+	    iOs: function() {
+	        return navigator.userAgent.match(/(iPad|iPhone|iPod)/i);
+	    },
+	    Android: function() {
+	        return navigator.userAgent.match(/android/i);
+	    },
+	    BlackBerry: function() {
+	        return navigator.userAgent.match(/BlackBerry/i);
+	    },
+	    Chrome: function() {
+	        return window.chrome;
+	    },
+	    Firefox: function() {
+	        return navigator.userAgent.match(/Firefox/i);
+	    },
+	    IE: function() {
+	        return navigator.userAgent.match(/MSIE/i);
+	    },
+	    Opera: function() {
+	        return (!!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0);
+	    },
+	    SeaMonkey: function() {
+	        return navigator.userAgent.match(/SeaMonkey/i);
+	    },
+	    Camino: function() {
+	        return navigator.userAgent.match(/Camino/i);
+	    },
+	    Safari: function() {
+	        return (Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0);
+	    }
+	};
+	 
+	var html_class = '';
+	//OS
+	if(isBrowserOs.Windows())
+		html_class = 'win';
+	if(isBrowserOs.UNIX())
+		html_class = 'unix';
+	if(isBrowserOs.MacOS())
+		html_class = 'mac';
+	if(isBrowserOs.Linux())
+		html_class = 'linux';
+	if(isBrowserOs.iOs())
+		html_class = 'ios mac';
+	if(isBrowserOs.Android())
+		html_class = 'android';
+	if(isBrowserOs.BlackBerry())
+		html_class = 'blackberry';
+	 
+	//Browser
+	if(isBrowserOs.Chrome())
+		html_class = html_class + ' chrome';
+	if(isBrowserOs.Firefox())
+		html_class = html_class + ' firefox';
+	if(isBrowserOs.IE())
+		html_class = html_class + ' ie';
+	if(isBrowserOs.Opera())
+		html_class = html_class + ' opera';
+	if(isBrowserOs.SeaMonkey())
+		html_class = html_class + ' seamonkey';
+	if(isBrowserOs.Camino())
+		html_class = html_class + ' camino';
+	if(isBrowserOs.Safari())
+		html_class = html_class + ' safari';
+	 
+	$("html").addClass(html_class);
+	 
+});
 
-
-    /*-------------------------------------
-      Vegas Slider
-      -------------------------------------*/
-    if ($.fn.vegas !== undefined && $("#vegas-slide").length) {
-        var target_slider = $("#vegas-slide"),
-            vegas_options = target_slider.data('vegas-options');
-        if (typeof vegas_options === "object") {
-            target_slider.vegas(vegas_options);
-        }
-    }
-
-    /*-------------------------------------
-      Animated Headline
-      -------------------------------------*/
-
-    if ($.fn.animatedHeadline !== undefined && $(".ah-animate").length) {
-        var target_slider = $(".ah-animate"),
-            ah_options = target_slider.data('line-options');
-        if (typeof ah_options === "object") {
-            target_slider.animatedHeadline(ah_options);
-        }
-    }
-
-    /*-------------------------------------
-      Section background image
-      -------------------------------------*/
-    $("[data-bg-image]").each(function () {
-        var img = $(this).data("bg-image");
-        $(this).css({
-            backgroundImage: "url(" + img + ")"
-        });
-    });
-
-    /*-------------------------------------
-       Youtube Video
-    -------------------------------------*/
-    if ($.fn.YTPlayer !== undefined) {
-        $('.youtube-video').each(function () {
-            var self = $(this),
-                videoId = self.data("video-id");
-            self.YTPlayer({
-                mute: false,
-                fitToBackground: true,
-                videoId: videoId,
-                playerVars: {
-                    modestbranding: 0,
-                    autoplay: 1,
-                    controls: 0,
-                    showinfo: 0,
-                    branding: 0,
-                    frameborder: 0,
-                    loop: 1,
-                    rel: 0,
-                    autohide: 0,
-                    start: 1,
-                    height: 1,
-                }
-            });
-        })
-        $('.youtube-video2').each(function () {
-            var self = $(this),
-                videoId = self.data("video-id");
-            self.YTPlayer({
-                mute: false,
-                fitToBackground: true,
-                videoId: videoId,
-                playerVars: {
-                    modestbranding: 0,
-                    autoplay: 1,
-                    controls: 0,
-                    showinfo: 0,
-                    branding: 0,
-                    frameborder: 0,
-                    loop: 1,
-                    rel: 0,
-                    autohide: 0,
-                    start: 19,
-                    height: 1,
-                }
-            });
-        })
-    }
-
-    $(function () {
-
-        if ($.fn.ripples !== undefined) {
-            $('#wrapper').ripples({
-                resolution: 356,
-                dropRadius: 20,
-                perturbance: 0.04,
-            });
-        }
-        /*-------------------------------------
-            Countdown activation code
-        -------------------------------------*/
-        var eventCounter = $(".countdown");
-        if (eventCounter.length) {
-            eventCounter.countdown("2021/07/06", function (e) {
-                $(this).html(
-                    e.strftime(
-                        "<div class='countdown-section'><div><div class='countdown-number'>%D</div> <div class='countdown-unit'>Day%!D</div> </div></div><div class='countdown-section'><div><div class='countdown-number'>%H</div> <div class='countdown-unit'>Hour%!H</div> </div></div><div class='countdown-section'><div><div class='countdown-number'>%M</div> <div class='countdown-unit'>Minutes</div> </div></div><div class='countdown-section'><div><div class='countdown-number'>%S</div> <div class='countdown-unit'>Second</div> </div></div>"
-                    )
-                );
-            });
-        }
-    });
-})(jQuery);
